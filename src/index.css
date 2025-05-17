@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 @layer base {
   :root {
@@ -34,8 +34,17 @@
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
+    
+    --sidebar-background: 222.2 47.4% 11.2%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 210 100% 40%;
+    --sidebar-primary-foreground: 210 40% 98%;
+    --sidebar-accent: 142 71% 45%;
+    --sidebar-accent-foreground: 222.2 47.4% 11.2%;
+    --sidebar-border: 217.2 32.6% 17.5%;
+    --sidebar-ring: 212.7 26.8% 83.9%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
   }
 
   .dark {
@@ -75,7 +84,8 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Poppins', sans-serif;
   }
 }
 
@@ -85,14 +95,96 @@
 }
 
 .page-container {
-  @apply container mx-auto p-4;
+  @apply container mx-auto px-4 py-8;
 }
 
+.section-padding {
+  @apply py-16 md:py-24;
+}
+
+/* Card styles */
+.feature-card {
+  @apply bg-gradient-to-br from-white to-secondary/30 rounded-xl shadow-md transition-all hover:shadow-lg p-6;
+}
+
+.dashboard-card {
+  @apply bg-white rounded-xl shadow-md transition-all hover:shadow-lg p-6 border border-border;
+}
+
+/* Animation classes */
 .fade-in {
   animation: fadeIn 0.5s ease-in;
 }
 
+.slide-in-right {
+  animation: slideInRight 0.5s ease-out;
+}
+
+.bounce-in {
+  animation: bounceIn 0.6s ease-in-out;
+}
+
+.scale-in {
+  animation: scaleIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.hover-scale {
+  @apply transition-transform duration-300;
+}
+
+.hover-scale:hover {
+  @apply transform scale-105;
+}
+
+/* Keyframes */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(30px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0.8); opacity: 0; }
+  50% { transform: scale(1.05); opacity: 0.7; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Glass effect */
+.glass {
+  @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-sm;
+}
+
+.glass-dark {
+  @apply bg-black/50 backdrop-blur-md border border-white/10 shadow-md;
+}
+
+/* Buttons with gradients */
+.btn-gradient {
+  @apply bg-gradient-to-r from-primary to-accent text-white font-medium;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-secondary rounded-full;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/60 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary/80;
 }

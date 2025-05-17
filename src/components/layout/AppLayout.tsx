@@ -1,20 +1,36 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import { Toaster } from '@/components/ui/toaster';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface AppLayoutProps {
   children: React.ReactNode;
 }
 
 const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
-      <main className="flex-grow">
-        {children}
-      </main>
+      <AnimatePresence mode="wait">
+        {isLoaded && (
+          <motion.main 
+            className="flex-grow"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            {children}
+          </motion.main>
+        )}
+      </AnimatePresence>
       <Footer />
       <Toaster />
     </div>
